@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
-import { ContactCollection } from '/imports/api/ContactCollection';
 
 export const ContactForm = () => {
 	const [name, setName] = useState("");
 
 	const handleSubmit = e => {
-	e.preventDefault();
+		e.preventDefault();
 
-	if (!name) return;
+		if (!name) return;
 
-	ContactCollection.insert({
-		name: name.trim(),
-		createdAt: new Date()
-		});
+		Meteor.call('contacts.insert', name);
 
-	setName("");
+		setName("");
 	};  
 
 	return (
