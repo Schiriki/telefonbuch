@@ -22,23 +22,27 @@ export const App = () => {
 
 	const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
 
-	const contacts = useTracker(() => {
-		if (!user) {
-			return [];
+	const { contacts, pendingContactsCount, isLoading } = useTracker(() => {
+		const noDataAvailable = { contacts: [], pendingContactsCount: 0 };
+		if (!Meteor.user()) {
+		  return noDataAvailable;
 		}
-
-		return ContactCollection.find(hideCompleted ? pendingOnlyFilter : userFilter, {
-			sort: {createdAt: -1},
-			}).fetch();
-	});
-
-	const pendingContactsCount = useTracker(() => {
-		if (!user) {
-			return 0;
+		const handler = Meteor.subscribe('tasks');
+	
+		if (!handler.ready()) {
+		  return { ...noDataAvailable, isLoading: true };
 		}
-
-		ContactCollection.find(hideCompletedFilter).count();
-	});
+	
+		const contacts = ContactCollection.find(
+		  hideCompleted ? pendingOnlyFilter : userFilter,
+		  {
+			sort: { createdAt: -1 },
+		  }
+		).fetch();
+		const pendingContactsCount = ContactCollection.find(pendingOnlyFilter).count();
+	
+		return { contacts, pendingContactsCount };
+	  });
 
 	const  pendingContactTitle = `${
 		pendingContactsCount ? ` (${ pendingContactsCount })` : ''
@@ -66,7 +70,14 @@ export const App = () => {
 								{ hideCompleted ? 'Show All' : 'Hide Completed'}
 							</button>
 						</div>
+						{isLoading && <div className="loading">loading...</div>}
 						<ul className = "contact">
+							<li className = "row">
+								<span className = "col-md-2">Name</span>
+								<span className = "col-md-4">Telefonnummer</span>
+								<span className = "col-md-3">Wohnort</span>
+								<span className = "col-md-3">Aktionen</span>
+							</li>
 							{ contacts.map(contact => 
 								<Contact 
 									key = { contact._id } 

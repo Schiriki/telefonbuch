@@ -23,6 +23,12 @@ Meteor.methods({
       throw new Meteor.Error('Not authorized.');
     }
  
+    const contact = ContactCollection.findOne({ _id: contactId, userId: this.userId });
+
+    if (!contact) {
+      throw new Meteor.Error('Access denied.');
+    }
+
     ContactCollection.remove(contactId);
   },
  
@@ -32,6 +38,12 @@ Meteor.methods({
  
     if (!this.userId) {
       throw new Meteor.Error('Not authorized.');
+    }
+
+    const contact = ContactCollection.findOne({ _id: contactId, userId: this.userId });
+
+    if (!contact) {
+      throw new Meteor.Error('Access denied.');
     }
  
     ContactCollection.update(contactId, {
