@@ -5,6 +5,7 @@ export const AddContactForm = () => {
     const [number, setNumber] = useState("");
     const [city, setCity] = useState("");
 
+    // add a new contact
 	const handleSubmit = e => {
 		e.preventDefault();
 

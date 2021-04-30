@@ -9,6 +9,7 @@ export const App = () => {
 	const logout = () => Meteor.logout();
 	const userFilter = user ? { userId: user._id } : {};
 
+	// make sure that just the Contacts of the user are loaded
 	const { contacts, isLoading } = useTracker(() => {
 		const noDataAvailable = { contacts: [], pendingContactsCount: 0 };
 		if (!Meteor.user()) {

@@ -11,6 +11,7 @@ export const EditContactForm = (data) => {
 	const id = data.data._id;
 	const logout = () => Meteor.logout();
 
+	// update entry and route back to main page
 	const handleSubmit = e => {
 		e.preventDefault();
 
