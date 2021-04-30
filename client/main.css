@@ -13,7 +13,7 @@ body {
   padding: 0;
   margin: 0;
 
-  font-size: 14px;
+  font-size: 16px;
 }
 
 button {
@@ -131,10 +131,6 @@ header {
   flex-grow: 1;
 }
 
-.contact > li > button {
-  justify-self: flex-end;
-  background-color: #ff3046;
-}
 
 .login-form {
   display: flex;
@@ -176,10 +172,15 @@ header {
 .user {
   display: flex;
 
-  align-self: flex-end;
-
   margin: 8px 16px 0;
   font-weight: bold;
+}
+
+.user > button {
+  position: absolute;
+  right: 10px;
+  min-width: 100px;
+  background-color: #315481;
 }
 
 .loading {
@@ -191,4 +192,57 @@ header {
   align-items: center;
 
   font-weight: bold;
+}
+
+.content{
+  margin: 16px;
+}
+
+.edit-buttons{
+  display: flex;
+  flex-flow: row-reverse;
+}
+
+.edit-buttons > button{
+  margin-left: 5px;
+}
+
+.contact-button > button{
+  margin-right: 5px;
+}
+
+.search{
+  width: 40%;
+  margin-left: 16px;
+  margin-bottom: 15px;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
+.styled-panel{
+  margin-top:5px;
+  margin-left: 16px;
+}
+.styled-panel > h4{
+  padding-left: 16px;;
+}
+
+.add-contact-form{
+  margin-left: 16px;
+  display: flex;
+}
+
+.add-element{
+  margin-right: 10px;
+}
+
+.add-element > button {
+  margin-top: 25px;
+}
+
+.panel-default{
+  margin-right: 16px;;
+}
+.entry-row{
+  width: 100%;
 }

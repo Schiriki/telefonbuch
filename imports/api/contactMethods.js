@@ -2,8 +2,10 @@ import { check } from 'meteor/check';
 import { ContactCollection } from '../db/ContactCollection';
  
 Meteor.methods({
-  'contacts.insert'(name) {
+  'contacts.insert'(name, number, city) {
     check(name, String);
+    check(number, String);
+    check(city, String);
  
     if (!this.userId) {
       throw new Meteor.Error('Not authorized.');
@@ -11,6 +13,8 @@ Meteor.methods({
  
     ContactCollection.insert({
       name,
+      number,
+      city,
       createdAt: new Date,
       userId: this.userId,
     })
@@ -31,25 +35,20 @@ Meteor.methods({
 
     ContactCollection.remove(contactId);
   },
- 
-  'contacts.setIsChecked'(contactId, isChecked) {
-    check(contactId, String);
-    check(isChecked, Boolean);
+
+  'contacts.update'(id,name, number, city) {
+    check(name, String);
+    check(number, String);
+    check(city, String);
  
     if (!this.userId) {
       throw new Meteor.Error('Not authorized.');
     }
-
-    const contact = ContactCollection.findOne({ _id: contactId, userId: this.userId });
-
-    if (!contact) {
-      throw new Meteor.Error('Access denied.');
-    }
  
-    ContactCollection.update(contactId, {
-      $set: {
-        isChecked
-      }
-    });
-  }
+    ContactCollection.update({ _id: id },{$set: 
+      { name: name, 
+        number: number, 
+        city: city}})
+  },
+ 
 });

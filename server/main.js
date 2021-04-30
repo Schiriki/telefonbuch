@@ -29,7 +29,7 @@ Meteor.startup(() => {
 
 	if (ContactCollection.find().count() === 0) {
 		const basicData = [
-			['Luffy', '01705558967', 'Foosha Village'],
+			['Luffy', '01705558967', 'Foosha'],
 			['Kirito', '01703452965', 'Tokyo'],
 			['Asuna', '01504457728', 'Kyoto'],
 			['Eren', '01503989765', 'Shiganshina'],
